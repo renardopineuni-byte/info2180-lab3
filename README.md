@@ -1,1 +1,6 @@
-# info2180-lab3
+# \#INFO2180-lab3
+
+
+
+This is Lab 3 for Renardo Pine
+
