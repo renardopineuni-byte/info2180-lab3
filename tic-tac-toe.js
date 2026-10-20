@@ -1,18 +1,12 @@
 document.addEventListener("DOMContentLoaded", () => {
     const squares = document.querySelectorAll("#board div");
     const statusDiv = document.querySelector("#status");
+    const newGameButton = document.querySelector(".btn");
     
     let gameState = ['', '', '', '', '', '', '', '', ''];
     let currentPlayer = "X";
     let gameEnded = false;
 
-    // Winning combinations for a 3x3 grid
-    const winningCombinations = [
-        [0, 1, 2], [3, 4, 5], [6, 7, 8], // Rows
-        [0, 3, 6], [1, 4, 2], [2, 5, 8], // Columns (Wait: [1,4,7] instead of [1,4,2])
-        [0, 4, 8], [2, 4, 6]            // Diagonals
-    ];
-    // Correcting column combination:
     const winningCombos = [
         [0, 1, 2], [3, 4, 5], [6, 7, 8], // Rows
         [0, 3, 6], [1, 4, 7], [2, 5, 8], // Columns
@@ -23,7 +17,7 @@ document.addEventListener("DOMContentLoaded", () => {
         for (let combo of winningCombos) {
             const [a, b, c] = combo;
             if (gameState[a] && gameState[a] === gameState[b] && gameState[a] === gameState[c]) {
-                return gameState[a]; // Returns "X" or "O"
+                return gameState[a];
             }
         }
         return null;
@@ -74,6 +68,24 @@ document.addEventListener("DOMContentLoaded", () => {
                     currentPlayer = currentPlayer === "X" ? "O" : "X";
                 }
             }
+        });
+    });
+
+    // Exercise 5: Restart the game when clicking the New Game button
+    newGameButton.addEventListener("click", () => {
+        gameState = ['', '', '', '', '', '', '', '', ''];
+        currentPlayer = "X";
+        gameEnded = false;
+
+        statusDiv.textContent = "Move your mouse over a square and click to play an X or an O.";
+        statusDiv.classList.remove("you-won");
+
+        squares.forEach(square => {
+            square.textContent = "";
+            square.classList.remove("X", "O");
+            square.style.backgroundColor = "";
+            square.style.transform = "";
+            square.style.cursor = "";
         });
     });
 });
